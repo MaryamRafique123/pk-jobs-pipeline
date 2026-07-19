@@ -1,16 +1,12 @@
-import os
 import pandas as pd
 import streamlit as st
 from sqlalchemy import create_engine
-from dotenv import load_dotenv
 import plotly.express as px
-
-load_dotenv()
 
 st.set_page_config(page_title="Jobs Market Pipeline", layout="wide")
 st.title("Tech Jobs Market Dashboard")
 
-engine = create_engine(os.getenv("DATABASE_URL"))
+engine = create_engine(st.secrets["DATABASE_URL"])
 df = pd.read_sql("SELECT * FROM jobs", engine)
 
 st.metric("Total jobs tracked", len(df))
